@@ -1,4 +1,4 @@
-# ARQUITETURA PEDAGÓGICA: FORMAÇÃO ENGENHARIA .NET
+# FORMAÇÃO ENGENHARIA .NET
 Estou construindo este curso para que eu possa continuar aprendendendo e também ajudar a qualquer um que vier a ter interesse em aprender .NET através de construção manual e adoção de ferramentas nativas.
 
 ## 1. O MOTOR DE EXECUÇÃO (A JORNADA)
