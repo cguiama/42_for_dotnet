@@ -1,4 +1,6 @@
 <Solution>
   <Project Path="Lv00.Tests/Lv00.Tests.csproj" />
   <Project Path="Lv00/Lv00.csproj" />
+  <Project Path="Lv01.Tests/Lv01.Tests.csproj" />
+  <Project Path="Lv01/Lv01.csproj" />
 </Solution>

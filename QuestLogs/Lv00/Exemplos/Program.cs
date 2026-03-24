@@ -39,6 +39,6 @@ public class Program
         // Use esta área livre de auditoria para invocar os motores que você forjará nas próximas Quests.
 
         // Exemplo de invocação de teste (descomente após forjar a Quest 01):
-        // Lv00.Quest01.PrintChar('G');
+        // Lv00.Quest01.TransmitSignal('G');
     }
 }

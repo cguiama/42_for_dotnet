@@ -4,7 +4,7 @@ namespace Lv00;
 public static class Quest01
 {
     // A assinatura do motor exigida na Quest
-    public static void PrintChar(char c)
+    public static void TransmitSignal(char c)
     {
         // Sua engenharia sob as regras da Forja entrará aqui.
     }
