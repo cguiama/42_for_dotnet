@@ -64,70 +64,53 @@ public class Scouter
     }
 
     [Fact]
-    public void Quest01_DeveImprimirCaractereNaMemoria()
+    public void Quest01_PulsoDeTransmissao()
     {
-        string resultado = InspecionarMemoria("Quest01", "PrintChar", new object[] { 'G' });
+        string resultado = InspecionarMemoria("Quest01", "TransmitSignal", new object[] { 'G' });
         Assert.Equal("G", resultado);
     }
 
     [Fact]
-    public void Quest02_DeveImprimirAlfabetoAscii()
+    public void Quest02_CalibragemDialHexadecimal()
     {
-        string resultado = InspecionarMemoria("Quest02", "PrintAlphabet");
-        Assert.Equal("abcdefghijklmnopqrstuvwxyz", resultado);
+        string resultado = InspecionarMemoria("Quest02", "CalibrateHexDial");
+        Assert.Equal("0123456789ABCDEF", resultado);
     }
 
     [Fact]
-    public void Quest03_DeveImprimirAlfabetoReverso()
+    public void Quest03_FiltroDeFrequencia()
     {
-        string resultado = InspecionarMemoria("Quest03", "PrintReverseAlphabet");
-        Assert.Equal("zyxwvutsrqponmlkjihgfedcba", resultado);
-    }
-
-    [Fact]
-    public void Quest04_DeveImprimirNumerosAscii()
-    {
-        string resultado = InspecionarMemoria("Quest04", "PrintNumbers");
-        Assert.Equal("0123456789", resultado);
+        string resultado = InspecionarMemoria("Quest03", "FilterFrequency");
+        Assert.Equal("bcdfghjklmnpqrstvwxyz", resultado);
     }
 
     [Theory]
-    [InlineData(42, "P")]
-    [InlineData(0, "P")]
-    [InlineData(-42, "N")]
-    [InlineData(int.MinValue, "N")]
-    [InlineData(int.MaxValue, "P")]
-    public void Quest05_DeveValidarDesvioCondicional(int energia, string saidaEsperada)
+    [InlineData(85, "C")]
+    [InlineData(80, "C")]
+    [InlineData(50, "S")]
+    [InlineData(1, "S")]
+    [InlineData(0, "F")]
+    [InlineData(-42, "F")]
+    public void Quest04_DiagnosticoDeTermostato(int energia, string saidaEsperada)
     {
-        string resultado = InspecionarMemoria("Quest05", "PrintSign", new object[] { energia });
+        string resultado = InspecionarMemoria("Quest04", "SystemDiagnostics", new object[] { energia });
         Assert.Equal(saidaEsperada, resultado);
     }
 
     [Fact]
-    public void Quest06_DeveImprimirCombinacoesDeTresDigitos()
+    public void Quest05_MatrizDeCoordenadasSeguras()
     {
         var expectativa = new StringBuilder();
-        for (int i = 0; i <= 7; i++)
-            for (int j = i + 1; j <= 8; j++)
-                for (int k = j + 1; k <= 9; k++)
-                    expectativa.Append($"{i}{j}{k}{(i == 7 && j == 8 && k == 9 ? "" : ", ")}");
-
-        string resultado = InspecionarMemoria("Quest06", "PrintCombinations");
-        Assert.Equal(expectativa.ToString(), resultado);
-    }
-
-    [Fact]
-    public void Quest07_DeveImprimirCombinacoesDeDuasDezenas()
-    {
-        var expectativa = new StringBuilder();
-        for (int i = 0; i <= 98; i++)
-            for (int j = i + 1; j <= 99; j++)
+        for (int i = 0; i <= 8; i++)
+        {
+            for (int j = i + 1; j <= 9; j++)
             {
-                expectativa.Append($"{i:D2} {j:D2}");
-                if (!(i == 98 && j == 99)) expectativa.Append(", ");
+                expectativa.Append($"[{i},{j}]");
+                if (!(i == 8 && j == 9)) expectativa.Append(" ");
             }
+        }
 
-        string resultado = InspecionarMemoria("Quest07", "PrintDoubleCombinations");
+        string resultado = InspecionarMemoria("Quest05", "PrintSafeCoordinates");
         Assert.Equal(expectativa.ToString(), resultado);
     }
 
@@ -137,9 +120,9 @@ public class Scouter
     [InlineData(-42, "-42")]
     [InlineData(int.MaxValue, "2147483647")]
     [InlineData(int.MinValue, "-2147483648")]
-    public void Quest08_DeveImprimirInteiroComRecursao(int carga, string saidaEsperada)
+    public void Quest06_DesfragmentacaoDeSetor(int carga, string saidaEsperada)
     {
-        string resultado = InspecionarMemoria("Quest08", "PrintInteger", new object[] { carga });
+        string resultado = InspecionarMemoria("Quest06", "DecodeSectorAddress", new object[] { carga });
         Assert.Equal(saidaEsperada, resultado);
     }
 }
