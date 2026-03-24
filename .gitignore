@@ -19,3 +19,4 @@
 # Instrui o Git a ignorar qualquer arquivo que comece com "Quest" e termine com ".cs"
 # Isso garante que apenas o Program.cs (O Chassi de Contenção) seja rastreado.
 **/Quest*.cs
+/Journey/Lv00/Program.cs
