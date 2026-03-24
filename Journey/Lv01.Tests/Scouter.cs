@@ -35,7 +35,6 @@ public class Scouter
 
         try
         {
-            // O Invoke alterará fisicamente o conteúdo do array 'parametros' se a função usar 'ref'
             object retorno = motor.Invoke(null, parametros);
             return (retorno, stringWriter.ToString());
         }
@@ -47,7 +46,6 @@ public class Scouter
 
     private void VerificarRegrasDaForja(string nomeArquivo)
     {
-        // Aponta o radar para a pasta Lv01
         string caminhoProjeto = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "Lv01"));
         string caminhoArquivo = Path.Combine(caminhoProjeto, nomeArquivo);
 
@@ -68,6 +66,7 @@ public class Scouter
         if (codigoFonte.Contains("foreach")) throw new ForjaException($"[VIOLAÇÃO] Iterador 'foreach' bloqueado no {nomeArquivo}.");
         if (codigoFonte.Contains("int.Parse") || codigoFonte.Contains("Convert.ToInt")) throw new ForjaException($"[VIOLAÇÃO] Magia de conversão numérica bloqueada no {nomeArquivo}.");
         if (codigoFonte.Contains("Array.Reverse") || codigoFonte.Contains(".Reverse()")) throw new ForjaException($"[VIOLAÇÃO] Inversão mágica detectada no {nomeArquivo}.");
+        if (codigoFonte.Contains(".Equals") || codigoFonte.Contains(".CompareTo")) throw new ForjaException($"[VIOLAÇÃO] Comparação mágica de memória bloqueada no {nomeArquivo}. Compare byte a byte.");
 
         // Regra específica do Quest04 (ReversePolarity): Proíbe alocação de novos blocos
         if (nomeArquivo == "Quest04.cs" && codigoFonte.Contains(" new "))
@@ -91,7 +90,6 @@ public class Scouter
     [Fact]
     public void Quest01_PermutaTermica()
     {
-        // A Física: Passamos um array de objetos. Se o método usar 'ref', a CLR alterará os valores originais dentro deste array.
         object[] energia = new object[] { 42, 99 };
         InspecionarMemoria("Quest01", "Swap", energia);
 
@@ -124,21 +122,48 @@ public class Scouter
         object[] parametros = new object[] { blocoMatriz };
 
         InspecionarMemoria("Quest04", "ReversePolarity", parametros);
-
-        // Verifica se o array injetado sofreu inversão in-place
         Assert.Equal(new int[] { 50, 40, 30, 20, 10 }, (int[])parametros[0]);
+    }
+
+    [Fact]
+    public void Quest05_ClonagemDeMateria()
+    {
+        char[] fonte = new char[] { 'A', 'r', 'q', 'u', 'i', 't', 'e', 't', 'o' };
+        var resultado = InspecionarMemoria("Quest05", "CloneBuffer", new object[] { fonte });
+
+        char[] clone = (char[])resultado.Retorno;
+
+        // 1. Audita se o conteúdo foi copiado corretamente
+        Assert.Equal(fonte, clone);
+
+        // 2. A Física Real: Audita se os endereços de memória SÃO DIFERENTES.
+        // Se o recruta só fez "return fonte;", ele cai aqui.
+        Assert.NotSame(fonte, clone);
+    }
+
+    [Theory]
+    [InlineData("Fisica", "Fisica", 0)]
+    [InlineData("Fisica", "Fisico", -1)] // 'a' (97) é menor que 'o' (111)
+    [InlineData("Fisico", "Fisica", 1)]  // 'o' (111) é maior que 'a' (97)
+    [InlineData("Fis", "Fisica", -1)]    // Tamanhos diferentes
+    [InlineData("Fisica", "Fis", 1)]
+    [InlineData("", "", 0)]
+    public void Quest06_Espectrometro(string a, string b, int saidaEsperada)
+    {
+        var resultado = InspecionarMemoria("Quest06", "CompareMatter", new object[] { a, b });
+        Assert.Equal(saidaEsperada, resultado.Retorno);
     }
 
     [Theory]
     [InlineData("42", 42)]
     [InlineData("   -42", -42)]
-    [InlineData(" ---++42A5", -42)] // Extrai apenas até o primeiro erro (A), 3 negativos invertem pra -
+    [InlineData(" ---++42A5", -42)]
     [InlineData(" +++100", 100)]
-    [InlineData("-2147483648", -2147483648)] // Teste de estresse
+    [InlineData("-2147483648", -2147483648)]
     [InlineData("2147483647", 2147483647)]
-    public void Quest05_DecodificadorDeMateria(string pacote, int saidaEsperada)
+    public void Quest07_DecodificadorDeMateria(string pacote, int saidaEsperada)
     {
-        var resultado = InspecionarMemoria("Quest05", "DecodeMatter", new object[] { pacote });
+        var resultado = InspecionarMemoria("Quest07", "DecodeMatter", new object[] { pacote });
         Assert.Equal(saidaEsperada, resultado.Retorno);
     }
 }
