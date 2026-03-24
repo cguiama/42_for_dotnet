@@ -1,5 +1,5 @@
 # FORMAÇÃO ENGENHARIA .NET
-Estou construindo este curso para que eu possa continuar aprendendendo e também ajudar a qualquer um que vier a ter interesse em aprender .NET através de construção manual e adoção de ferramentas nativas.
+Estou construindo este curso para que eu possa continuar aprendendendo e também ensinar a qualquer um que vier a ter interesse em aprender .NET através de construção manual de conceitos fundamentais, com acesso aberto via GitHub, visando democratizar o ensino de programação.
 
 ## EQUIPANDO O ARSENAL (PRÉ-REQUISITOS)
 
