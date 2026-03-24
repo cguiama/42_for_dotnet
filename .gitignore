@@ -1,0 +1,21 @@
+# ==========================================
+# RESÍDUO TÉRMICO DO COMPILADOR E CLR
+# ==========================================
+# Bloqueia os binários (.dll, .exe) e os arquivos de Linguagem Intermediária (IL)
+**/bin/
+**/obj/
+
+# ==========================================
+# ARQUIVOS DA BANCADA DE ENGENHARIA (IDE)
+# ==========================================
+# Impede que as configurações particulares da sua máquina subam para o servidor
+.vscode/
+.vs/
+*.user
+
+# ==========================================
+# BLINDAGEM DAS QUESTS (SOLUÇÕES DO JOGADOR)
+# ==========================================
+# Instrui o Git a ignorar qualquer arquivo que comece com "Quest" e termine com ".cs"
+# Isso garante que apenas o Program.cs (O Chassi de Contenção) seja rastreado.
+**/Quest*.cs

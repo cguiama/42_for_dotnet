@@ -1,10 +1,34 @@
 # FORMAÇÃO ENGENHARIA .NET
 Estou construindo este curso para que eu possa continuar aprendendendo e também ajudar a qualquer um que vier a ter interesse em aprender .NET através de construção manual e adoção de ferramentas nativas.
 
+## EQUIPANDO O ARSENAL (PRÉ-REQUISITOS)
+
+Para entrar na Forja, o seu hardware precisa reconhecer a matriz de comandos do ecossistema Microsoft. O compilador e a máquina virtual (CLR) não vêm embutidos no sistema operacional por padrão.
+
+### 1. O Motor Principal (.NET SDK 10)
+Você precisa obrigatoriamente do **Software Development Kit (SDK)**, e não apenas do *Runtime*. O SDK contém o compilador Roslyn e as ferramentas de linha de comando (CLI) necessárias para construir a aplicação e rodar o nosso motor de testes (o Scouter).
+
+* [Download Oficial do .NET SDK 10 (Windows, macOS, Linux)](https://dotnet.microsoft.com/download/dotnet/10.0)
+* *Nota:* Baixe o instalador correspondente à arquitetura do seu processador (x64 ou ARM64).
+
+### 2. Validação da Infraestrutura
+Após a instalação, o SDK deve ser acoplado automaticamente às variáveis de ambiente (Path) da sua máquina. Para validar se a instalação foi bem-sucedida, abra o seu terminal e injete o comando de diagnóstico:
+
+```bash
+dotnet --version
+```
+
+*A saída térmica no terminal deve retornar algo como `10.0.xxx`. Se o sistema acusar "comando não reconhecido", o SDK não foi mapeado no Path. Reinicie o terminal ou a máquina*
+
+### 3. A Bancada de Engenharia (IDE)
+Escrever C# puro sem um analisador sintático é um gasto térmico desnecessário. Equipe um ambiente capaz de ler a árvore do código:
+* **Leve e Ágil:** [Visual Studio Code](https://code.visualstudio.com/) + Extensão oficial **C# Dev Kit**.
+* **Armaduras Pesadas:** Visual Studio 2022 (Community) ou JetBrains Rider.
+
 ## 1. O MOTOR DE EXECUÇÃO (A JORNADA)
 Cada Level do curso é estritamente dividido em duas fases:
-* **A Forja:** O ambiente hostil. Bibliotecas padrão e magias de framework (LINQ, Entity Framework, ASP.NET) são bloqueados. O jogador constrói a estrutura de dados e a arquitetura do zero, lidando com alocação na RAM, matemática bruta e a física do C# puro. O *Scouter* (Testes Automatizados xUnit) explodirá o build se detectar ferramentas proibidas.
-* **O Arsenal:** A liberação das chaves da Microsoft. Após provar que entende a engenharia subjacente, o jogador descarta o motor manual e equipa a ferramenta nativa de mercado (ex: troca o laço manual pelo `.Where()`, troca o SQL puro pelo EF Core) consolidando a produtividade.
+* **A Forja:** O ambiente hostil. Bibliotecas padrão e magias de framework (LINQ, Entity Framework, ASP.NET) são bloqueados. O aprendiz constrói a estrutura de dados e a arquitetura do zero, lidando com alocação na RAM, matemática bruta e a física do C# puro. O *Scouter* (Testes Automatizados xUnit) explodirá o build se detectar ferramentas proibidas.
+* **O Arsenal:** A liberação das chaves da Microsoft. Após provar que entende a engenharia subjacente, o aprendiz descarta o motor manual e equipa a ferramenta nativa de mercado (ex: troca o laço manual pelo `.Where()`, troca o SQL puro pelo EF Core) consolidando a produtividade.
 
 ## 2. ARCO 1: A FUNDAÇÃO CLR (Stack vs Heap)
 O foco é a memória e a fluência na sintaxe C#. Zero banco de dados. Zero internet.
@@ -23,6 +47,6 @@ O foco é a infraestrutura distribuída, escalabilidade e integração de IA.
 * **Lv08 - Escala e Contêineres:** Dockerização da aplicação. Introdução de filas assíncronas (RabbitMQ) e cache de memória (Redis).
 * **Lv09 - Injeção Cognitiva (IA Pura):** Conexão bruta via `HttpClient` com APIs de LLMs. Gestão de latência e tokens.
 * **Lv10 - Geometria de Dados (RAG):** Vetorização de texto (Embeddings). Bancos de dados vetoriais (pgvector/Redis) e busca por similaridade.
-* **Lv11 - Orquestração (Semantic Kernel):** Transformação dos Comandos do C# em agentes de IA. Automação de intenção do jogador.
+* **Lv11 - Orquestração (Semantic Kernel):** Transformação dos Comandos do C# em agentes de IA. Automação de intenção do aprendiz.
 * **Lv12 - A Interface do Usuário (Blazor):** Ciclo de vida de componentes no navegador (WebAssembly) ou no servidor (Server-side). Gerenciamento de estado visual e consumo assíncrono da API RESTful forjada no Lv05.
-* **Final Boss:** A linha de montagem automatizada. O deploy manual é estritamente proibido. O jogador deve escrever um pipeline YAML de CI/CD (GitHub Actions). O servidor deve baixar o código, compilar, rodar as validações do Domínio e injetar os contêineres em produção automaticamente no `git push`. Se um único teste do Scouter falhar, o lançamento é abortado.
+* **Final Boss:** A linha de montagem automatizada. O deploy manual é estritamente proibido. O aprendiz deve escrever um pipeline YAML de CI/CD (GitHub Actions). O servidor deve baixar o código, compilar, rodar as validações do Domínio e injetar os contêineres em produção automaticamente no `git push`. Se um único teste do Scouter falhar, o lançamento é abortado.
