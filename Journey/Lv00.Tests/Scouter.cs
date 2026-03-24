@@ -74,7 +74,7 @@ public class Scouter
     public void Quest02_CalibragemDialHexadecimal()
     {
         string resultado = InspecionarMemoria("Quest02", "CalibrateHexDial");
-        Assert.Equal("0123456789ABCDEF", resultado);
+        Assert.Equal("0123456789ABCDEF\n", resultado);
     }
 
     [Fact]
