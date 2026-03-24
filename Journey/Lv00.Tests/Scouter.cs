@@ -7,6 +7,15 @@ using Xunit;
 
 namespace Lv00.Tests;
 
+// 1. O SILENCIADOR TÉRMICO
+// Hackeamos a classe base de erros do .NET. Quando o xUnit tentar 
+// ler o rastro de sangue, nós devolvemos um ponteiro nulo.
+public class ForjaException : Exception
+{
+    public ForjaException(string message) : base(message) { }
+    public override string StackTrace => null;
+}
+
 public class Scouter
 {
     private string InspecionarMemoria(string nomeQuest, string nomeMetodo, object[] parametros = null)
@@ -15,11 +24,11 @@ public class Scouter
 
         Type tipoQuest = Type.GetType($"Lv00.{nomeQuest}, Lv00");
         if (tipoQuest == null)
-            Assert.Fail($"[MISSÃO INATIVA] A classe {nomeQuest} não foi forjada.");
+            throw new ForjaException($"[MISSÃO INATIVA] A classe estática {nomeQuest} não foi forjada.");
 
         MethodInfo motor = tipoQuest.GetMethod(nomeMetodo, BindingFlags.Public | BindingFlags.Static);
         if (motor == null)
-            Assert.Fail($"[FALHA DE ASSINATURA] O motor {nomeMetodo} não foi forjado em {nomeQuest}.");
+            throw new ForjaException($"[FALHA DE ASSINATURA] O motor {nomeMetodo} não foi encontrado em {nomeQuest}.");
 
         TextWriter originalOut = Console.Out;
         using StringWriter stringWriter = new StringWriter();
@@ -42,25 +51,25 @@ public class Scouter
         string caminhoArquivo = Path.Combine(caminhoProjeto, nomeArquivo);
 
         if (!File.Exists(caminhoArquivo))
-            Assert.Fail($"[MISSÃO INATIVA] O arquivo físico {nomeArquivo} não existe.");
+            throw new ForjaException($"[MISSÃO INATIVA] O arquivo físico {nomeArquivo} não existe.");
 
         string codigoFonte = File.ReadAllText(caminhoArquivo);
 
-        Assert.False(codigoFonte.Contains(" var "), $"[VIOLAÇÃO] Uso de 'var' detectado no {nomeArquivo}.");
-        Assert.False(codigoFonte.Contains("for (") || codigoFonte.Contains("for("), $"[VIOLAÇÃO] Laço 'for' detectado no {nomeArquivo}.");
-        Assert.False(codigoFonte.Contains(".ToString("), $"[VIOLAÇÃO] Magia .ToString() detectada no {nomeArquivo}.");
-        Assert.False(codigoFonte.Contains("using System.Linq;"), $"[VIOLAÇÃO] Invocação do LINQ detectada no {nomeArquivo}.");
-        Assert.False(codigoFonte.Contains("Console.WriteLine"), $"[VIOLAÇÃO] Console.WriteLine detectado no {nomeArquivo}.");
+        if (codigoFonte.Contains(" var ")) throw new ForjaException($"[VIOLAÇÃO] Uso de 'var' detectado no {nomeArquivo}.");
+        if (codigoFonte.Contains("for (") || codigoFonte.Contains("for(")) throw new ForjaException($"[VIOLAÇÃO] Laço 'for' detectado no {nomeArquivo}.");
+        if (codigoFonte.Contains(".ToString(")) throw new ForjaException($"[VIOLAÇÃO] Magia .ToString() detectada no {nomeArquivo}.");
+        if (codigoFonte.Contains("using System.Linq;")) throw new ForjaException($"[VIOLAÇÃO] Invocação do LINQ detectada no {nomeArquivo}.");
+        if (codigoFonte.Contains("Console.WriteLine")) throw new ForjaException($"[VIOLAÇÃO] Console.WriteLine detectado no {nomeArquivo}.");
     }
 
     [Fact]
     public void Quest00_DeveConterChassiDeContencaoEMain()
     {
         Type tipoProgram = Type.GetType("Lv00.Program, Lv00");
-        if (tipoProgram == null) Assert.Fail("[MISSÃO INATIVA] O Program.cs não possui o chassi exigido.");
+        if (tipoProgram == null) throw new ForjaException("[MISSÃO INATIVA] O Program.cs não possui o chassi exigido.");
 
         MethodInfo metodoMain = tipoProgram.GetMethod("Main", BindingFlags.Public | BindingFlags.Static);
-        if (metodoMain == null) Assert.Fail("[FALHA DE ASSINATURA] O método Main não foi encontrado.");
+        if (metodoMain == null) throw new ForjaException("[FALHA DE ASSINATURA] O método Main não foi encontrado.");
     }
 
     [Fact]
@@ -74,7 +83,7 @@ public class Scouter
     public void Quest02_CalibragemDialHexadecimal()
     {
         string resultado = InspecionarMemoria("Quest02", "CalibrateHexDial");
-        Assert.Equal("0123456789ABCDEF\n", resultado);
+        Assert.Equal("0123456789ABCDEF", resultado);
     }
 
     [Fact]
