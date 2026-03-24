@@ -33,8 +33,8 @@ Cada Level do curso é estritamente dividido em duas fases:
 ## 2. ARCO 1: A FUNDAÇÃO CLR (Stack vs Heap)
 O foco é a memória e a fluência na sintaxe C#. Zero banco de dados. Zero internet.
 * **Lv00 - A Física da Máquina:** Variáveis, tipos primitivos, tipagem estrita (proibido `var`). Operação 100% na Stack.
-* **Lv01 - O Salto para a Heap:** Structs vs Classes. Entendendo o Garbage Collector. Proibido coleções dinâmicas.
-* **Lv02 - Blindagem de Estado:** Orientação a Objetos estrita. Modificadores de acesso, validação de estado. Proibido `set` público.
+* **Lv01 - O Salto para a Heap:** Entendendo ponteiros e o Garbage Collector. Proibido coleções dinâmicas.
+* **Lv02 - Blindagem de Estado:** Structs vs Classes, Entendendo Orientação a Objetos estrita. Modificadores de acesso, validação de estado. Proibido `set` público.
 * **Lv03 - A Esteira de Dados:** Construção de coleções dinâmicas na mão. Introdução a ponteiros de função (`Action`, `Func`) e criação de métodos de extensão que imitam o LINQ.
 * **Boss Fight (Arco 1):** Construção de uma ferramenta de CLI (Command Line Interface) robusta que processe arquivos, argumentos e trate exceções sem travar a thread principal.
 
