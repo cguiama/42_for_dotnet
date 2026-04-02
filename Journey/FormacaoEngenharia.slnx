@@ -5,4 +5,6 @@
   <Project Path="Lv01/Lv01.csproj" />
   <Project Path="Lv02.Tests/Lv02.Tests.csproj" />
   <Project Path="Lv02/Lv02.csproj" />
+  <Project Path="Lv03.Tests/Lv03.Tests.csproj" />
+  <Project Path="Lv03/Lv03.csproj" />
 </Solution>
